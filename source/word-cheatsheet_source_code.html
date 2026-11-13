@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MS Word Cheatsheet</title>
+<!--
+  MS Word Cheatsheet - © Daniel Dauber
+  Colours: GitHub Primer "Dark Default" theme and syntax palette.
+  To make a PDF: open in Chrome or Edge > Print > Save as PDF
+  (Margins: None, Background graphics: on). The page size is set below.
+  To edit an entry: change the text inside the matching <div class="row">.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Surfaces and text */
+    --bg:        #0d1117;  /* canvas default */
+    --bg-subtle: #161b22;  /* file header bar */
+    --border:    #30363d;  /* outer borders */
+    --divider:   #21262d;  /* row dividers */
+    --fg:        #e6edf3;  /* main text */
+    --fg-soft:   #c9d1d9;  /* sub-items */
+    --muted:     #8b949e;  /* secondary text, arrows */
+    --line-no:   #7d8590;  /* line numbers */
+    --faint:     #484f58;  /* tree glyphs, separators */
+
+    /* Syntax roles */
+    --tab:         #ff7b72; /* keyword red: ribbon tab */
+    --path:        #a5d6ff; /* string blue: menu path */
+    --placeholder: #ffa657; /* orange: [your choice] */
+    --ok:          #3fb950; /* green dot */
+
+    --sans: "Mona Sans", "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    /* Column widths: line no. | task | tab | menu path */
+    --cols: 64px 380px 240px minmax(0, 1fr);
+  }
+
+  @page { size: 1440px 900px; margin: 0; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .sheet {
+    width: 1440px;
+    height: 900px;
+    padding: 64px 80px 48px;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    overflow: hidden;
+  }
+
+  /* Header */
+  header { display: flex; align-items: baseline; justify-content: space-between; }
+  .title { display: flex; align-items: baseline; gap: 20px; }
+  h1 { margin: 0; font-size: 64px; font-weight: 600; letter-spacing: -0.03em; }
+  .slash { font-size: 40px; font-weight: 300; color: var(--border); }
+  .subtitle { font-size: 40px; font-weight: 300; letter-spacing: -0.01em; color: var(--muted); }
+  .badges { display: flex; gap: 10px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+
+  /* File panel */
+  .panel { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .filebar {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 48px; padding: 0 20px;
+    background: var(--bg-subtle); border-bottom: 1px solid var(--border);
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+  }
+  .filename { display: flex; align-items: center; gap: 10px; color: var(--fg); }
+
+  /* Table rows */
+  .row {
+    display: grid;
+    grid-template-columns: var(--cols);
+    align-items: center;
+    height: 64px;
+    font-family: var(--mono);
+    font-size: 18px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .row:last-child { border-bottom: 0; }
+  .row.head { height: 44px; font-size: 12px; letter-spacing: 0.08em; color: var(--muted); }
+  .row.group { height: 56px; border-bottom: 0; }
+  .row.sub { height: 48px; border-bottom: 0; }
+  .row.sub.last { height: 56px; padding-bottom: 8px; border-bottom: 1px solid var(--divider); }
+
+  .ln { font-size: 13px; color: var(--line-no); text-align: right; padding-right: 24px; }
+  .task { font-family: var(--sans); font-size: 20px; font-weight: 500; color: var(--fg); }
+  .task .sep { color: var(--faint); font-weight: 300; }
+  .subtask { display: flex; align-items: center; gap: 12px; padding-left: 4px; }
+  .subtask .tree { color: var(--faint); }
+  .subtask .label { font-family: var(--sans); font-size: 18px; font-weight: 400; color: var(--fg-soft); }
+  .tab { color: var(--tab); }
+  .path { color: var(--path); }
+  .arrow { color: var(--muted); }
+  .ph { color: var(--placeholder); }
+  .comment { font-size: 14px; color: var(--muted); }
+
+  /* Footer */
+  footer {
+    margin-top: auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+  }
+  .legend { display: flex; gap: 16px; }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header>
+    <div class="title">
+      <h1>MS Word</h1>
+      <span class="slash">/</span>
+      <span class="subtitle">Cheatsheet</span>
+    </div>
+    <div class="badges">
+      <span class="badge"><span class="dot" aria-hidden="true"></span>Windows &amp; Mac</span>
+      <span class="badge">Microsoft 365</span>
+    </div>
+  </header>
+
+  <section class="panel">
+    <div class="filebar">
+      <div class="filename">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#8b949e" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 1.5h6l3 3v10h-9z"/><path d="M9.5 1.5v3h3"/></svg>
+        <span>word-cheatsheet.md</span>
+      </div>
+      <span>7 lines · 5 tasks</span>
+    </div>
+
+    <div class="row head">
+      <span></span><span>TASK</span><span>TAB</span><span>MENU PATH</span>
+    </div>
+
+    <div class="row">
+      <span class="ln">1</span>
+      <span class="task">Modify Styles</span>
+      <span class="tab">Home</span>
+      <span class="path">Styles gallery <span class="arrow">-&gt;</span> right-click style <span class="arrow">-&gt;</span> Modify</span>
+    </div>
+
+    <div class="row">
+      <span class="ln">2</span>
+      <span class="task">Page <span class="sep">|</span> Section Breaks</span>
+      <span class="tab">Layout</span>
+      <span class="path">Breaks <span class="arrow">-&gt;</span> <span class="ph">[choose break type]</span></span>
+    </div>
+
+    <div class="row group">
+      <span class="ln">3</span>
+      <span class="task">Captions</span>
+      <span></span>
+      <span class="comment"># two steps</span>
+    </div>
+
+    <div class="row sub">
+      <span class="ln">4</span>
+      <span class="subtask"><span class="tree" aria-hidden="true">├─</span><span class="label">Insert Caption</span></span>
+      <span class="tab">References</span>
+      <span class="path">Insert Caption</span>
+    </div>
+
+    <div class="row sub last">
+      <span class="ln">5</span>
+      <span class="subtask"><span class="tree" aria-hidden="true">└─</span><span class="label">Cross-reference</span></span>
+      <span class="tab">References</span>
+      <span class="path">Cross-reference</span>
+    </div>
+
+    <div class="row">
+      <span class="ln">6</span>
+      <span class="task">Table of Contents</span>
+      <span class="tab">References</span>
+      <span class="path">Table of Contents</span>
+    </div>
+
+    <div class="row">
+      <span class="ln">7</span>
+      <span class="task">Page Numbers</span>
+      <span class="tab">Insert</span>
+      <span class="path">Page Number</span>
+    </div>
+  </section>
+
+  <footer>
+    <span class="legend">
+      <span class="tab">tab</span>
+      <span class="path">menu path</span>
+      <span class="ph">[your choice]</span>
+    </span>
+    <span>// © Daniel Dauber</span>
+  </footer>
+
+</main>
+</body>
+</html>
