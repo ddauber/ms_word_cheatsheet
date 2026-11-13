@@ -9,4 +9,4 @@ steps are the same in Word for Windows and Mac (Microsoft 365).
 
 ## Download
 
-[Download the PDF](./ms_word_cheatsheet.pdf)
+[Download the PDF](./word_cheatsheet_v2.pdf)
